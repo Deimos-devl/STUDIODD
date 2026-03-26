@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debora Dantas • Designer de Sobrancelhas</title>
+  <meta name="description" content="Agende serviços de sobrancelhas e depilação com Debora Dantas." />
+  <style>
+    :root{
+      --bg-1:#140f0b;
+      --bg-2:#1d1610;
+      --card:rgba(255,248,240,.06);
+      --stroke:rgba(255,233,207,.14);
+      --text:#fff8f1;
+      --muted:#e3d3c3;
+      --soft:#c9b39c;
+      --gold-1:#d8b57b;
+      --gold-2:#f0d3a2;
+      --whatsapp-1:#1fb65a;
+      --whatsapp-2:#25d366;
+      --shadow-xl:0 24px 80px rgba(0,0,0,.38);
+      --shadow-lg:0 16px 40px rgba(0,0,0,.28);
+      --radius-xl:30px;
+      --radius-lg:22px;
+      --radius-md:16px;
+      --transition:.28s ease;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Segoe UI",Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(216,181,123,.12), transparent 28%),
+        linear-gradient(180deg, #110c09 0%, #1a130d 38%, #211811 70%, #120d09 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(240,211,162,.06), transparent 20%),
+        radial-gradient(circle at 85% 25%, rgba(216,181,123,.05), transparent 18%),
+        radial-gradient(circle at 50% 100%, rgba(255,255,255,.03), transparent 24%);
+      z-index:0;
+    }
+    .page{position:relative;z-index:1}
+    section{position:relative;padding:26px 0}
+    .container{width:min(1160px, calc(100% - 28px));margin:0 auto}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .gold-text{
+      background:linear-gradient(135deg,var(--gold-1),var(--gold-2),#fff0d8);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .section-title{text-align:center;display:grid;gap:12px;margin-bottom:26px}
+    .section-title .tag{
+      justify-self:center;padding:10px 16px;border-radius:999px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+      color:#f5e8d8;background:rgba(255,245,233,.07);border:1px solid rgba(255,228,191,.15);backdrop-filter:blur(8px);
+    }
+    .section-title h2{font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.06}
+    .section-title p{max-width:780px;margin:0 auto;color:var(--muted);line-height:1.7;font-size:1rem}
+    .btn,.btn-ghost,.wa-btn,.mini-btn,.outline-link{
+      text-decoration:none;border:none;cursor:pointer;
+      transition:transform var(--transition), box-shadow var(--transition), opacity var(--transition), background var(--transition), border-color var(--transition);
+    }
+    .btn:hover,.btn-ghost:hover,.wa-btn:hover,.mini-btn:hover,.outline-link:hover{transform:translateY(-2px)}
+    .btn:active,.btn-ghost:active,.wa-btn:active,.mini-btn:active,.outline-link:active{transform:translateY(0)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:16px 24px;border-radius:999px;font-weight:700;color:#20150d;
+      background:linear-gradient(135deg,#f5debf,var(--gold-1));box-shadow:0 12px 28px rgba(216,181,123,.24);
+    }
+    .btn-ghost{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:16px 24px;border-radius:999px;font-weight:700;color:var(--text);
+      background:rgba(255,247,236,.06);border:1px solid rgba(255,228,191,.15);backdrop-filter:blur(10px);
+    }
+    .mini-btn{
+      display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:16px;font-weight:700;color:#20150d;
+      background:linear-gradient(135deg,#f5debf,var(--gold-1));box-shadow:0 12px 26px rgba(216,181,123,.18);
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,245,233,.08), rgba(255,245,233,.04));
+      border:1px solid var(--stroke);border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);backdrop-filter:blur(14px);overflow:hidden;
+    }
+
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .hero-media{
+      position:absolute;inset:0;
+      background:
+        linear-gradient(180deg, rgba(10,8,6,.22) 0%, rgba(10,8,6,.38) 28%, rgba(17,12,9,.75) 74%, rgba(17,12,9,1) 100%),
+        url("hero-profissionais.jpg") center top / cover no-repeat;
+      transform:scale(1.03);
+    }
+    .hero-media::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(17,12,9,.02) 42%, rgba(17,12,9,.22) 58%, rgba(17,12,9,.62) 76%, rgba(17,12,9,.95) 92%, #110c09 100%);
+      pointer-events:none;
+    }
+    .hero-overlay-shine{
+      position:absolute;inset:auto 0 0 0;height:220px;background:radial-gradient(circle at center, rgba(240,211,162,.12), transparent 62%);filter:blur(28px);pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;z-index:2;width:min(980px, calc(100% - 28px));margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;padding:46px 0 56px;
+    }
+    .logo-wrap{
+      width:116px;height:116px;border-radius:50%;padding:5px;background:linear-gradient(135deg, rgba(245,222,191,.7), rgba(185,141,80,.5));box-shadow:0 18px 44px rgba(0,0,0,.32);animation:pulseGlow 3.2s ease-in-out infinite;
+    }
+    .logo-wrap-inner{
+      width:100%;height:100%;overflow:hidden;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+    }
+    .logo-wrap img{width:100%;height:100%;object-fit:cover}
+    @keyframes pulseGlow{
+      0%,100%{box-shadow:0 18px 44px rgba(0,0,0,.28), 0 0 0 rgba(216,181,123,.12)}
+      50%{box-shadow:0 18px 44px rgba(0,0,0,.34), 0 0 30px rgba(216,181,123,.18)}
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:999px;background:rgba(255,247,236,.08);
+      border:1px solid rgba(255,228,191,.14);color:#f8ead9;backdrop-filter:blur(10px);font-size:14px;
+    }
+    .hero h1{
+      font-size:clamp(2.3rem, 6vw, 4.8rem);line-height:.98;max-width:940px;letter-spacing:-.03em;text-shadow:0 8px 34px rgba(0,0,0,.34);
+    }
+    .hero p{
+      max-width:760px;font-size:clamp(1rem,2vw,1.14rem);color:#f0dfcd;line-height:1.75;text-shadow:0 6px 18px rgba(0,0,0,.22);
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:6px}
+    .scroll-down{
+      position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:3;display:inline-flex;flex-direction:column;align-items:center;gap:8px;font-size:13px;color:rgba(255,240,224,.84);animation:floatDown 2s ease-in-out infinite;
+    }
+    .scroll-down .mouse{width:24px;height:38px;border-radius:999px;border:1.5px solid rgba(255,230,198,.45);position:relative}
+    .scroll-down .mouse::after{
+      content:"";position:absolute;width:4px;height:8px;border-radius:999px;background:rgba(255,230,198,.75);left:50%;top:7px;transform:translateX(-50%);animation:wheel 1.4s ease-in-out infinite;
+    }
+    @keyframes wheel{0%{opacity:0;transform:translateX(-50%) translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(10px)}}
+    @keyframes floatDown{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+    .about{display:flex;align-items:center;min-height:100vh}
+    .about-grid{display:grid;grid-template-columns:.98fr 1.02fr;gap:18px;align-items:stretch}
+    .about-card,.video-panel{padding:24px}
+    .about-card h3,.video-panel h3{font-size:1.38rem;margin-bottom:12px}
+    .about-card p{color:var(--muted);line-height:1.8;font-size:.98rem;margin-bottom:14px}
+    .info-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .pill{padding:10px 14px;border-radius:999px;background:rgba(255,248,240,.06);border:1px solid rgba(255,229,195,.1);color:#fff2df;font-size:.92rem}
+    .video-frame{
+      position:relative;border-radius:26px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,229,195,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .video-frame video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000}
+    .video-caption{margin-top:14px;color:var(--muted);line-height:1.7;font-size:.96rem}
+
+    .services{display:flex;align-items:center}
+    .services-layout{display:grid;grid-template-columns:1fr;gap:18px}
+    .service-card{overflow:hidden}
+    .service-head{
+      padding:22px 22px 18px;background:linear-gradient(135deg, rgba(245,222,191,.07), rgba(216,181,123,.03));border-bottom:1px solid rgba(255,230,198,.10);
+    }
+    .service-head h3{display:flex;align-items:center;gap:10px;font-size:1.24rem;margin-bottom:6px}
+    .service-head p{color:var(--muted);line-height:1.65;font-size:.96rem}
+    .service-list{padding:14px;display:grid;gap:12px}
+    .service-item{
+      position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:14px;padding:15px;border-radius:20px;background:rgba(255,249,243,.04);
+      border:1px solid rgba(255,232,202,.08);transition:transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);overflow:hidden;
+    }
+    .service-item::before{
+      content:"";position:absolute;inset:0;background:linear-gradient(135deg, rgba(240,211,162,.07), transparent 55%);opacity:0;transition:opacity var(--transition);pointer-events:none;
+    }
+    .service-item:hover{transform:translateY(-2px);border-color:rgba(255,226,186,.18);background:rgba(255,249,243,.06);box-shadow:var(--shadow-lg)}
+    .service-item:hover::before{opacity:1}
+    .service-item input[type="checkbox"]{margin-top:4px;width:20px;height:20px;accent-color:#d8b57b;cursor:pointer}
+    .service-info strong{display:block;font-size:1rem;margin-bottom:5px;color:#fff7ee}
+    .service-info span{display:block;line-height:1.55;color:var(--muted);font-size:.92rem}
+    .price{white-space:nowrap;font-weight:700;color:#ffe9c8;font-size:.96rem;padding-left:8px}
+
+    .sticky-summary{position:sticky;bottom:14px;margin-top:18px;z-index:10}
+    .summary-card{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;border-radius:24px;
+      background:linear-gradient(135deg, rgba(18,14,11,.88), rgba(35,25,19,.9));border:1px solid rgba(255,230,198,.12);box-shadow:var(--shadow-xl);backdrop-filter:blur(18px);
+    }
+    .summary-meta{display:grid;gap:4px}
+    .summary-meta small{color:var(--soft);font-size:.85rem}
+    .summary-meta strong{font-size:1.06rem;color:#fff7ee}
+    .summary-total{text-align:right}
+    .summary-total strong{font-size:1.18rem}
+
+    .contact{display:flex;align-items:center;min-height:100vh}
+    .contact-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+    .resume,.actions{padding:22px}
+    .resume h3,.actions h3{font-size:1.34rem;margin-bottom:10px}
+    .resume p,.actions p{color:var(--muted);line-height:1.7;margin-bottom:18px;font-size:.97rem}
+    .selected-list{display:grid;gap:10px;max-height:360px;overflow:auto;padding-right:3px}
+    .selected-list::-webkit-scrollbar{width:8px}
+    .selected-list::-webkit-scrollbar-thumb{background:rgba(255,221,174,.18);border-radius:999px}
+    .selected-item{
+      display:flex;justify-content:space-between;gap:14px;padding:14px 15px;border-radius:18px;background:rgba(255,248,240,.05);border:1px solid rgba(255,229,195,.10);font-size:.96rem;
+    }
+    .empty-state{
+      padding:18px;border-radius:18px;background:rgba(255,248,240,.04);border:1px dashed rgba(255,229,195,.16);color:var(--muted);line-height:1.7;
+    }
+    .total-box{
+      margin-top:14px;padding:18px;border-radius:22px;display:flex;justify-content:space-between;align-items:center;gap:14px;background:linear-gradient(135deg, rgba(216,181,123,.18), rgba(240,211,162,.09));border:1px solid rgba(255,230,198,.15);box-shadow:inset 0 1px 0 rgba(255,255,255,.04);font-weight:700;
+    }
+    .booking-box{margin:18px 0 14px;display:grid;gap:14px}
+    .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:grid;gap:8px}
+    .field label{color:#fff2df;font-size:.94rem;font-weight:600}
+    .field select{
+      min-height:54px;width:100%;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,228,191,.16);background:rgba(255,247,236,.06);color:#fff8f1;outline:none;font:inherit;backdrop-filter:blur(8px);
+    }
+    .field select option{color:#1f1611;background:#fff8f1}
+    .field select:focus{border-color:rgba(255,228,191,.28);box-shadow:0 0 0 4px rgba(216,181,123,.12)}
+    .wa-group{display:grid;gap:14px;margin-top:14px}
+    .wa-btn{
+      min-height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 16px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--whatsapp-1),var(--whatsapp-2));box-shadow:0 12px 30px rgba(37,211,102,.22);
+    }
+    .outline-link{
+      min-height:54px;border-radius:18px;display:flex;align-items:center;justify-content:center;padding:14px 16px;font-weight:700;color:#fff7ee;background:rgba(255,247,236,.05);border:1px solid rgba(255,228,191,.14);
+    }
+    .note-box{
+      margin-top:16px;padding:14px 15px;border-radius:16px;background:rgba(255,248,240,.04);border:1px solid rgba(255,228,191,.08);color:var(--muted);line-height:1.65;font-size:.9rem;
+    }
+    .footer-note{text-align:center;margin-top:18px;color:rgba(255,238,215,.55);font-size:.84rem}
+    .floating-top{
+      position:fixed;right:16px;bottom:16px;z-index:50;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#20150d;font-size:20px;background:linear-gradient(135deg,#f5debf,var(--gold-1));box-shadow:0 18px 34px rgba(0,0,0,.28);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s ease, transform .25s ease;text-decoration:none;
+    }
+    .floating-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+    @media (max-width:920px){
+      .about-grid,.contact-grid,.booking-grid{grid-template-columns:1fr}
+      .summary-card{flex-direction:column;align-items:stretch}
+      .summary-total{text-align:left}
+    }
+    @media (max-width:640px){
+      section{padding:18px 0}
+      .hero{min-height:100vh}
+      .hero-inner{padding:34px 0 72px}
+      .logo-wrap{width:96px;height:96px}
+      .hero h1{font-size:2.2rem}
+      .hero p,.section-title p,.about-card p{font-size:.96rem}
+      .hero-actions,.hero-actions .btn,.hero-actions .btn-ghost,.wa-btn,.outline-link{width:100%}
+      .service-item{grid-template-columns:auto 1fr}
+      .price{grid-column:2 / 3;padding-left:0;margin-top:3px}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero" id="inicio">
+      <div class="hero-media"></div>
+      <div class="hero-overlay-shine"></div>
+      <div class="hero-inner reveal">
+        <div class="logo-wrap">
+          <div class="logo-wrap-inner">
+            <img src="logo-studio.png" alt="Logo do estúdio" />
+          </div>
+        </div>
+        <div class="hero-badge">✨ Debora Dantas • Designer de Sobrancelhas</div>
+        <h1>
+          Realce sua beleza com um atendimento
+          <span class="gold-text">delicado, elegante e profissional</span>
+        </h1>
+        <p>
+          Escolha seus serviços de sobrancelhas e depilação, veja o valor estimado
+          e agende direto pelo WhatsApp com Debora Dantas de forma prática.
+        </p>
+        <div class="hero-actions">
+          <a href="#sobre" class="btn">✨ Conhecer o atendimento</a>
+          <a href="#servicos" class="btn-ghost">💎 Escolher serviços</a>
+        </div>
+      </div>
+      <div class="scroll-down">
+        <div class="mouse"></div>
+        <span>desça para continuar</span>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="tag">Sobre a profissional</div>
+          <h2>Atendimento feito com técnica, cuidado e beleza</h2>
+          <p>
+            Um espaço pensado para valorizar o olhar, harmonizar o rosto e oferecer
+            um resultado bonito, limpo e natural em cada detalhe.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card about-card reveal">
+            <h3>✨ Debora Dantas</h3>
+            <p>
+              Debora Dantas é designer de sobrancelhas e profissional de depilação, com
+              <strong>anos de experiência</strong> atendendo clientes com atenção,
+              delicadeza e compromisso com um resultado que valoriza a beleza natural.
+            </p>
+            <p>
+              Seu trabalho une técnica, bom gosto e cuidado em cada atendimento,
+              buscando entregar sobrancelhas mais harmônicas, acabamento refinado
+              e uma experiência acolhedora do início ao fim.
+            </p>
+            <p>
+              Ideal para quem busca praticidade, autoestima e um visual mais alinhado
+              no dia a dia, com serviços pensados para destacar ainda mais o seu rosto.
+            </p>
+            <div class="info-pills">
+              <span class="pill">Anos de experiência</span>
+              <span class="pill">Atendimento personalizado</span>
+              <span class="pill">Sobrancelhas & depilação</span>
+            </div>
+          </div>
+
+          <div class="card video-panel reveal">
+            <h3>🎥 Resultado em vídeo</h3>
+            <div class="video-frame">
+              <video autoplay muted loop playsinline preload="auto">
+                <source src="browlamination.mp4" type="video/mp4" />
+                Seu navegador não suporta vídeo em HTML5.
+              </video>
+            </div>
+            <p class="video-caption">
+              Um timelapse do serviço de brow lamination para mostrar o cuidado,
+              o acabamento e a delicadeza do atendimento!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicos">
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="tag">Escolha seus serviços</div>
+          <h2>Monte seu atendimento do seu jeito</h2>
+          <p>
+            Selecione um ou mais serviços abaixo. O valor exibido funciona como uma
+            estimativa inicial para facilitar seu agendamento.
+          </p>
+        </div>
+
+        <div class="services-layout">
+          <div class="card service-card reveal">
+            <div class="service-head">
+              <h3>✨ Debora Dantas • Sobrancelhas e Depilação</h3>
+              <p>
+                Design, harmonia facial e depilação com acabamento delicado para
+                valorizar ainda mais sua beleza.
+              </p>
+            </div>
+
+            <div class="service-list">
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Brow Lamination" data-price="110" />
+                <div class="service-info">
+                  <strong>Brow Lamination</strong>
+                  <span>Efeito alinhado, sofisticado e mais preenchido</span>
+                </div>
+                <div class="price">R$ 110</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Sobrancelha personalizada" data-price="30" />
+                <div class="service-info">
+                  <strong>Sobrancelha personalizada</strong>
+                  <span>Design pensado para seu rosto</span>
+                </div>
+                <div class="price">R$ 30</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Design com henna" data-price="40" />
+                <div class="service-info">
+                  <strong>Design com henna</strong>
+                  <span>Mais definição e destaque para o olhar</span>
+                </div>
+                <div class="price">R$ 40</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Coloração de sobrancelha" data-price="50" />
+                <div class="service-info">
+                  <strong>Coloração</strong>
+                  <span>Harmonização da cor dos fios</span>
+                </div>
+                <div class="price">R$ 50</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Buço" data-price="15" />
+                <div class="service-info">
+                  <strong>Buço</strong>
+                  <span>Depilação facial localizada</span>
+                </div>
+                <div class="price">R$ 15</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Depilação corporal completa" data-price="150" />
+                <div class="service-info">
+                  <strong>Depilação corporal completa</strong>
+                  <span>Mais praticidade e cuidado no dia a dia</span>
+                </div>
+                <div class="price">R$ 150</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Inguinal completa" data-price="60" />
+                <div class="service-info">
+                  <strong>Inguinal completa</strong>
+                  <span>Depilação com delicadeza e precisão</span>
+                </div>
+                <div class="price">R$ 60</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Axila" data-price="25" />
+                <div class="service-info">
+                  <strong>Axila</strong>
+                  <span>Depilação localizada</span>
+                </div>
+                <div class="price">R$ 25</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Meia perna" data-price="25" />
+                <div class="service-info">
+                  <strong>Meia perna</strong>
+                  <span>Depilação prática e rápida</span>
+                </div>
+                <div class="price">R$ 25</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Perna completa" data-price="40" />
+                <div class="service-info">
+                  <strong>Perna completa</strong>
+                  <span>Depilação completa das pernas</span>
+                </div>
+                <div class="price">R$ 40</div>
+              </label>
+
+              <label class="service-item">
+                <input type="checkbox" class="service-check" data-name="Dermaplaning" data-price="75" />
+                <div class="service-info">
+                  <strong>Dermaplaning</strong>
+                  <span>Depilação facial completa</span>
+                </div>
+                <div class="price">R$ 75</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="sticky-summary reveal">
+          <div class="summary-card">
+            <div class="summary-meta">
+              <small>Resumo da sua seleção</small>
+              <strong id="selectedCount">0 serviço selecionado</strong>
+            </div>
+            <div class="summary-meta summary-total">
+              <small>Valor estimado</small>
+              <strong id="selectedTotal">R$ 0,00</strong>
+            </div>
+            <a href="#contato" class="mini-btn">Continuar para agendamento</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="tag">Agendamento</div>
+          <h2>Finalize pelo WhatsApp</h2>
+          <p>
+            Confira abaixo os serviços selecionados, escolha o dia da semana e o período desejado,
+            e envie sua solicitação para Debora Dantas verificar o melhor horário disponível.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card resume reveal">
+            <h3>🧾 Resumo do seu pedido</h3>
+            <p>
+              Sua mensagem será enviada com os serviços marcados, o valor estimado,
+              o dia da semana escolhido e o período desejado, facilitando o atendimento.
+            </p>
+            <div id="selectedServicesList" class="selected-list">
+              <div class="empty-state">
+                Nenhum serviço foi selecionado ainda. Volte à seção anterior,
+                escolha os serviços desejados e depois retorne para finalizar.
+              </div>
+            </div>
+            <div class="total-box">
+              <span>Total estimado</span>
+              <span id="finalTotal">R$ 0,00</span>
+            </div>
+          </div>
+
+          <div class="card actions reveal">
+            <h3>📲 Agende agora</h3>
+            <p>
+              Os valores acima funcionam como base inicial dos serviços selecionados.
+              Após enviar a mensagem, Debora confirmará a disponibilidade e verificará
+              com você o melhor horário dentro do dia e período escolhidos.
+            </p>
+
+            <div class="booking-box">
+              <div class="booking-grid">
+                <div class="field">
+                  <label for="diaSemana">Dia da semana desejado</label>
+                  <select id="diaSemana">
+                    <option value="">Selecione um dia</option>
+                    <option>Segunda-feira</option>
+                    <option>Terça-feira</option>
+                    <option>Quarta-feira</option>
+                    <option>Quinta-feira</option>
+                    <option>Sexta-feira</option>
+                    <option>Sábado</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="periodoAtendimento">Período desejado</label>
+                  <select id="periodoAtendimento">
+                    <option value="">Selecione um período</option>
+                    <option>Manhã</option>
+                    <option>Tarde</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="wa-group">
+              <a id="deboraBtn" class="wa-btn" href="#" target="_blank" rel="noopener noreferrer">
+                ✨ Falar com Debora Dantas
+              </a>
+              <a href="#inicio" class="outline-link">⬆️ Voltar ao início</a>
+            </div>
+
+            <div class="note-box">
+              Atendimento mediante agendamento. O horário exato será confirmado diretamente
+              com a profissional após o envio da sua solicitação no WhatsApp.
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          São José de Mipibu/RN • Studio Debora Dantas
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <a href="#inicio" class="floating-top" id="floatingTop" aria-label="Voltar ao topo">↑</a>
+
+  <script>
+    const checks = document.querySelectorAll(".service-check");
+    const selectedCount = document.getElementById("selectedCount");
+    const selectedTotal = document.getElementById("selectedTotal");
+    const finalTotal = document.getElementById("finalTotal");
+    const selectedServicesList = document.getElementById("selectedServicesList");
+    const deboraBtn = document.getElementById("deboraBtn");
+    const floatingTop = document.getElementById("floatingTop");
+    const diaSemana = document.getElementById("diaSemana");
+    const periodoAtendimento = document.getElementById("periodoAtendimento");
+
+    const whatsappDebora = "558491953169";
+
+    function formatBRL(value) {
+      return value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function getSelectedServices() {
+      return [...checks]
+        .filter((input) => input.checked)
+        .map((input) => ({
+          name: input.dataset.name,
+          price: Number(input.dataset.price)
+        }));
+    }
+
+    function createMessage(services, total) {
+      const dia = diaSemana.value || "A combinar";
+      const periodo = periodoAtendimento.value || "A combinar";
+
+      if (!services.length) {
+        return encodeURIComponent(
+`Olá Debora!
+
+Gostaria de agendar um atendimento.
+
+Dia da semana desejado: ${dia}
+Período desejado: ${periodo}
+
+Meu nome é:
+
+Quero verificar os horários disponíveis.`
+        );
+      }
+
+      const list = services
+        .map((item) => `- ${item.name} (${formatBRL(item.price)})`)
+        .join("\n");
+
+      const text =
+`Olá Debora!
+
+Gostaria de agendar os seguintes serviços:
+
+${list}
+
+Total estimado: ${formatBRL(total)}
+Dia da semana desejado: ${dia}
+Período desejado: ${periodo}
+
+Meu nome é:
+
+Quero verificar os horários disponíveis.`;
+
+      return encodeURIComponent(text);
+    }
+
+    function updateUI() {
+      const services = getSelectedServices();
+      const total = services.reduce((acc, item) => acc + item.price, 0);
+
+      selectedCount.textContent =
+        services.length === 0
+          ? "0 serviço selecionado"
+          : services.length === 1
+          ? "1 serviço selecionado"
+          : `${services.length} serviços selecionados`;
+
+      selectedTotal.textContent = formatBRL(total);
+      finalTotal.textContent = formatBRL(total);
+
+      if (!services.length) {
+        selectedServicesList.innerHTML = `
+          <div class="empty-state">
+            Nenhum serviço foi selecionado ainda. Volte à seção anterior,
+            escolha os serviços desejados e depois retorne para finalizar.
+          </div>
+        `;
+      } else {
+        selectedServicesList.innerHTML = services
+          .map(
+            (item) => `
+            <div class="selected-item">
+              <span>${item.name}</span>
+              <strong>${formatBRL(item.price)}</strong>
+            </div>
+          `
+          )
+          .join("");
+      }
+
+      deboraBtn.href = `https://wa.me/${whatsappDebora}?text=${createMessage(services, total)}`;
+    }
+
+    checks.forEach((input) => input.addEventListener("change", updateUI));
+    diaSemana.addEventListener("change", updateUI);
+    periodoAtendimento.addEventListener("change", updateUI);
+    updateUI();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        floatingTop.classList.add("show");
+      } else {
+        floatingTop.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
